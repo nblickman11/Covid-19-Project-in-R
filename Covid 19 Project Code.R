@@ -1,14 +1,24 @@
 # Covid 19 R Project
 install.packages("gridExtra")
 library(gridExtra)
+library(grid)
+library(data.table)
+library(ggplot2)
 
 # shape of data frame
 dim(usa_county_wise)
 # filter data with with regex to contain only months after march (0 deaths mainly before that)
 usa_county_wise2 = dplyr::filter(usa_county_wise, grepl("^[4567].*", usa_county_wise$Date))
 
+# filter to the 50 states
 states = unique(usa_county_wise2$Province_State)   # pull our States/Provinces
-states = states[10:20]
+states = states[6:56]
+r = "District of Columbia"
+states = states[! states %in% r]
+
+# first 25 states
+states = states[1:25]
+
 
 # SOO, for loops in R dont have scope, so when get to end of for loop you overwrite your stuff with 
  #the most recent item.  So, use list functions in R instead.
@@ -51,10 +61,6 @@ plot_f = function(data, state){
 
 plots = lapply(states, plot_f, data = usa_county_wise2)
 
-do.call("grid.arrange", 
-        c(plots, ncol=4, nrow=3, 
-          left = "Deaths per Day (X Axis)", 
-          bottom = "April-July by day (Y-Axis"))
-
+grid.arrange(grobs = plots, ncol=5, nrow=5, left = textGrob("Cumulative Total of Deaths By Day (X Axis)", rot = 90, gp=gpar(fontsize=20)), bottom = textGrob("April-July By Day (Y-Axis)", gp=gpar(fontsize=20)), top = textGrob("Running Total of Deaths Over 4 Months", gp=gpar(fontsize=20)))
 
 

@@ -7,3 +7,4 @@ See the comments on the images of the Code 2 Results to understand what type of 
 The Result Images from Part 2 of the code show that if other countries tested a similar percentage of people to the US, how many Covid Cases would they have.
 This isn't a complete analysis because many other variables should be considered.  However, with similar testing amounts, the US appeared to have lower covid 
 cases than underdeveloped countries, but higher covid cases than other developed countries like itself.
+** Images for Africa and Asia must be run directly from R for correct spacing (R has some sort of Zoom in Quality not displayed here)
